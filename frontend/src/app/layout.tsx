@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-// import Navbars from "./components/Navbars";
+
 import Sidebar from "./components/Sidebar";
 
 
@@ -23,7 +23,8 @@ export default function RootLayout({
       <body className={inter.className}>
     
         <div className="flex">
-{/* <Navbars /> */}
+
+
 <Sidebar />
 
         <main className="flex-1">{children}</main>

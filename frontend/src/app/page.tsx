@@ -1,9 +1,16 @@
 "use client";
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import Link from 'next/link';
 
-const initialCards = [
+interface Card {
+  id: number;
+  title: string;
+  date: string;
+  url: string;
+}
+
+const initialCards: Card[] = [
   { id: 1, title: 'Identify the top 3 customers based on total Sale value across all locations.', date: 'Jan 24, 2024', url: '/practice' },
   { id: 2, title: 'Identify outliers in sales data based on the z-score of the sales value.', date: 'Jan 24, 2024', url: '/usebar1' },
   { id: 3, title: 'Calculate the percentage increase or decrease in sales value of 2023 compared to the 2021 to 2022', date: 'Jan 24, 2024', url: '/usebar1/usebar2' },
@@ -15,11 +22,11 @@ const initialCards = [
   // Add more cards as needed
 ];
 
-export default function Home() {
-  const [cards, setCards] = useState(initialCards);
-  const [searchTerm, setSearchTerm] = useState('');
+const Home: React.FC = () => {
+  const [cards, setCards] = useState<Card[]>(initialCards);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const handleSearch = (event) => {
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.toLowerCase();
     setSearchTerm(value);
     const filteredCards = initialCards.filter(card =>
@@ -47,7 +54,7 @@ export default function Home() {
           <h1 className="mb-8" style={{ color: "white" }}><b>BCF Board 1</b></h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {cards.map(card => (
-              <Link key={card.id} href={card.url} legacyBehavior>
+              <Link key={card.id} href={card.url} passHref legacyBehavior>
                 <a target="_blank" className="bg-purple-500 p-4 rounded text-white block">
                   <div>{card.date}</div>
                   <div>{card.title}</div>
@@ -69,4 +76,7 @@ export default function Home() {
       </div>
     </div>
   );
-}
+};
+
+export default Home;
+
